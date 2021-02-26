@@ -33,7 +33,7 @@ void enableRawMode() {
     raw.c_iflag |= (CS8);
     raw.c_lflag &= ~(ECHO | ICANON | IEXTEN |ISIG);
     raw.c_cc[VMIN] = 0;
-    raw.c_cc[VTIME] = 10; // 1 second
+    raw.c_cc[VTIME] = 255; // 25.5 seconds
     if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1) {
         die("tcsetattr");
     }
