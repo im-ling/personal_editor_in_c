@@ -19,6 +19,8 @@ void enableRawMode() {
     raw.c_iflag &= ~(OPOST);
     raw.c_iflag |= (CS8);
     raw.c_lflag &= ~(ECHO | ICANON | IEXTEN |ISIG);
+    raw.c_cc[VMIN] = 0;
+    raw.c_cc[VTIME] = 10; // 1 second
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
