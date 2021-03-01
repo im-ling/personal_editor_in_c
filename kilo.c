@@ -32,6 +32,8 @@ struct editorConfig {
 
 struct editorConfig E;
 
+int test_string[5] = {0};
+
 /*** terminal ***/
 void die(const char *s) {
     write(STDOUT_FILENO, "\x1b[2J", 4);
@@ -74,15 +76,19 @@ int editorReadKey() {
         }
     }
 
+    test_string[0] = c;
     if (c == '\x1b') {
+        
         char seq[3];
-
         if (read(STDIN_FILENO, &seq[0], 1) != 1) return '\x1b';
         if (read(STDIN_FILENO, &seq[1], 1) != 1) return '\x1b';
 
         if (seq[0] == '[') {
             if (seq[1] >= '0' && seq[1] <= '9') {
                 if (read(STDIN_FILENO, &seq[2], 1) != 1) return '\x1b';
+                test_string[1] = seq[0];
+                test_string[2] = seq[1];
+                test_string[3] = seq[2];
                 if (seq[2] == '~') {
                     switch (seq[1]) {
                         case '5': return PAGE_UP;
@@ -90,6 +96,9 @@ int editorReadKey() {
                     }
                 }
             } else {
+                test_string[1] = seq[0];
+                test_string[2] = seq[1];
+                test_string[3] = seq[2];
                 switch (seq[1]) {
                     case 'A': return ARROW_UP;
                     case 'B': return ARROW_DOWN;
@@ -163,7 +172,7 @@ void editorDrawRows(struct abuf *ab) {
     for (y = 0; y < E.screenrows; y++){
         if (y == E.screenrows / 3) {
             char welcome[80];
-            int welcomelen = snprintf(welcome, sizeof(welcome), "Kilo editor -- version %s", KILO_VERSION);
+            int welcomelen = snprintf(welcome, sizeof(welcome), "Kilo editor -- version %d %d %d %d", test_string[0], test_string[1], test_string[2], test_string[3]);
             if (welcomelen > E.screencols) welcomelen = E.screencols;
             int padding = (E.screencols - welcomelen) / 2;
             if (padding) {
