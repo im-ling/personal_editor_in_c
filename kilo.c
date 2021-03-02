@@ -224,6 +224,12 @@ void editorScroll() {
     if (E.cy >= E.rowoff + E.screenrows) {
         E.rowoff = E.cy - E.screenrows + 1;
     }
+    if (E.cx < E.coloff) {
+        E.coloff = E.cx;
+    }
+    if (E.cx >= E.coloff + E.screencols) {
+        E.coloff = E.cx - E.screencols + 1;
+    }
 }
 
 void editorDrawRows(struct abuf *ab) {
@@ -249,7 +255,7 @@ void editorDrawRows(struct abuf *ab) {
             int len = E.row[filerow].size - E.coloff;
             if (len < 0) len = 0;
             if (len > E.screencols) len = E.screencols;
-            abAppend(ab, E.row[filerow].chars[E.coloff], len);
+            abAppend(ab, &E.row[filerow].chars[E.coloff], len);
         }
         abAppend(ab, "\x1b[K", 3);    
         if (y < E.screenrows - 1) {
