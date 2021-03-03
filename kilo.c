@@ -455,7 +455,7 @@ void initEditor() {
     E.numrows = 0;
     E.row = NULL;
     E.filename = NULL;
-    E.statusmsg[80] = '\0';
+    E.statusmsg[0] = '\0';
     E.statusmsg_time = 0;
 
     if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
