@@ -549,7 +549,7 @@ void editorProcessKeypress() {
     int c = editorReadKey();
     switch (c) {
         case '\r':
-            /* todo */
+            editorInsertNewline();
             break;
             
         case CTRL_KEY('q'):
