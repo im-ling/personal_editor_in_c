@@ -559,7 +559,7 @@ char *editorPrompt(char *prompt) {
         if (c == DEL_KEY || c == CTRL_KEY('h') || c == BACKSPACE) {
             if (buflen != 0) buf[--buflen] = '\0';
         } else if (c == '\x1b') {
-            editorSetStatusMessage("123");
+            editorSetStatusMessage("");
             free(buf);
             return NULL;
         } else if (c == '\r') {
