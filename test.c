@@ -1,5 +1,7 @@
 /*** includes ***/
 int_32 test_number = 0;
+'test'
+"test asd"
 #define _DEFAULT_SOURCE
 #define _BSD_SOURCE
 #define _GNU_SOURCE
