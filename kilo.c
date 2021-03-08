@@ -421,7 +421,7 @@ void editorFindCallback(char *query, int key) {
         current += direction;
         if (current == -1) current = E.numrows -1;
         else if (current == E.numrows) current = 0;
-        erow *row = &E.row[i];
+        erow *row = &E.row[current];
         char *match = strstr(row->render, query);
         if (match) {
             last_match = current;
@@ -744,6 +744,7 @@ void initEditor() {
     E.coloff = 0;
     E.numrows = 0;
     E.row = NULL;
+    E.dirty = 0;
     E.filename = NULL;
     E.statusmsg[0] = '\0';
     E.statusmsg_time = 0;
